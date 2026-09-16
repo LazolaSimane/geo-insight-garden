@@ -104,7 +104,7 @@ export function driver(
     ["G", w.G * scores.G],
   ];
   c.sort((a, b) => b[1] - a[1]);
-  return c[0][0];
+  return c[0]![0];
 }
 
 export const DRIVER_LABEL: Record<"L" | "F" | "G", string> = {

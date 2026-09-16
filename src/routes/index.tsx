@@ -56,9 +56,9 @@ function Dashboard() {
     geo: false,
   });
 
-  const scenario = SCENARIOS.find((s) => s.id === scenarioId)!;
+  const scenario = SCENARIOS.find((s) => s.id === scenarioId) ?? SCENARIOS[0]!;
   const sites = useMemo(() => scoreSites(scenario.weights), [scenario]);
-  const selected = sites.find((s) => s.id === selectedId) ?? sites[0];
+  const selected = sites.find((s) => s.id === selectedId) ?? sites[0]!;
 
   const toggle = (key: keyof LayerState) =>
     setLayers((prev) => ({ ...prev, [key]: !prev[key] }));

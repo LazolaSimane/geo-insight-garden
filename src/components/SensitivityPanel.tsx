@@ -13,7 +13,7 @@ export default function SensitivityPanel({
   onSelect: (id: string) => void;
 }) {
   const runs = SCENARIOS.map((s) => ({ scenario: s, sites: scoreSites(s.weights) }));
-  const base = runs[0].sites;
+  const base = runs[0]!.sites;
 
   const rows = base.map((s) => {
     const ranks = runs.map((r) => r.sites.find((x) => x.id === s.id)!.rank);

@@ -62,7 +62,7 @@ export default function SiteMap({ sites, selectedId, onSelect, layers }: Props) 
               weight: 0.8,
               opacity: 0.5,
               fillColor: "var(--ground)",
-              fillOpacity: FLOOD_OPACITY[cell.band] * 0.8,
+              fillOpacity: FLOOD_OPACITY[cell.band]! * 0.8,
             }}
           >
             <Tooltip>
@@ -83,7 +83,7 @@ export default function SiteMap({ sites, selectedId, onSelect, layers }: Props) 
               weight: 1.4,
               dashArray: "4 4",
               fillColor: "var(--flood)",
-              fillOpacity: FLOOD_OPACITY[z.band],
+              fillOpacity: FLOOD_OPACITY[z.band]!,
             }}
           >
             <Tooltip>

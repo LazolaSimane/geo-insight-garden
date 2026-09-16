@@ -320,7 +320,7 @@ export function buildGeoGrid(): GeoCell[] {
       // Deterministic, reproducible class assignment for the screening grid.
       const seed = (r * 31 + c * 17) % 11;
       const idx = seed < 2 ? 0 : seed < 5 ? 1 : seed < 8 ? 2 : seed < 10 ? 3 : 4;
-      const band = bands[idx];
+      const band = bands[idx]!;
       const hz = seed % 3 === 0 ? "Shrink-swell clay" : seed % 3 === 1 ? "Running sand" : "Slope instability";
       const hLat = dLat * 0.62;
       const hLng = dLng * 0.52;
