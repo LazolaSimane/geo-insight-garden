@@ -1,5 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ClientOnly, createFileRoute as _crf } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useMemo, useState } from "react";
 
 import RankingPanel from "@/components/RankingPanel";
