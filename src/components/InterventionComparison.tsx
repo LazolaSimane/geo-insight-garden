@@ -13,7 +13,7 @@ function Dots({ value, label }: { value: number; label: string }) {
           />
         ))}
       </span>
-    </section>
+    </div>
   );
 }
 
@@ -61,7 +61,7 @@ export default function InterventionComparison({ site }: { site: ScoredSite }) {
                 </div>
               </dl>
               {opt.id === "suds" && site.scores.G >= 75 ? (
-                <p className="mt-3 text-xs text-accent">
+                <p className="mt-3 text-xs text-accent-foreground">
                   Screening constraint: {site.geoHazard}. Confirm permeability, contamination and groundwater before infiltration; lined attenuation is a candidate, not a requirement.
                 </p>
               ) : null}
