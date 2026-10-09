@@ -1,8 +1,8 @@
 /**
  * Rehabilitation priority scoring model.
  *
- * Each indicator is normalised to 0-100 using the 5-point band published
- * within each source dataset (higher = greater rehabilitation priority):
+ * Team-defined five-band normalisation (not a shared source classification).
+ * Higher values indicate greater rehabilitation priority:
  *   Very low = 0, Low = 25, Moderate = 50, High = 75, Very high = 100
  *
  * R = wL*L + wF*F + wG*G   (base weights 0.40 / 0.40 / 0.20)
@@ -104,7 +104,7 @@ export function driver(
     ["G", w.G * scores.G],
   ];
   c.sort((a, b) => b[1] - a[1]);
-  return c[0]![0];
+  return c[0]?.[0] ?? "L";
 }
 
 export const DRIVER_LABEL: Record<"L" | "F" | "G", string> = {
