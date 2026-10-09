@@ -10,7 +10,7 @@ import {
 } from "@/lib/scoring";
 
 export default function SiteDetail({ site, weights }: { site: ScoredSite; weights: Weights }) {
-  const rec = INTERVENTIONS.find((i) => i.id === site.recommended)!;
+  const rec = INTERVENTIONS.find((i) => i.id === site.recommended);
   const terms = [
     { w: weights.L, v: site.scores.L },
     { w: weights.F, v: site.scores.F },
@@ -18,10 +18,10 @@ export default function SiteDetail({ site, weights }: { site: ScoredSite; weight
   ];
 
   return (
-    <div className="panel p-5">
+    <section className="border-t border-border pt-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="label-caps">Site drill-down · rank #{site.rank}</p>
+          <p className="label-caps">Site analysis · rank #{site.rank}</p>
           <h2 className="mt-1 text-xl font-semibold">{site.name}</h2>
           <p className="mt-1 text-xs text-muted-foreground">
             {site.ref} · {site.areaHa.toFixed(1)} ha · {site.centre[0].toFixed(4)},{" "}
@@ -35,6 +35,7 @@ export default function SiteDetail({ site, weights }: { site: ScoredSite; weight
         </div>
       </div>
 
+      <p className="mt-3 text-xs text-accent-foreground">Illustrative scores · source values and site boundaries awaiting verification</p>
       <div className="mt-5 grid gap-4 sm:grid-cols-3">
         <ScoreBar
           label="L — Land condition"
@@ -74,8 +75,8 @@ export default function SiteDetail({ site, weights }: { site: ScoredSite; weight
 
       <div className="mt-4 rounded-lg border border-primary/40 bg-primary/10 p-4">
         <p className="label-caps">Screening recommendation</p>
-        <p className="mt-1 text-sm font-semibold text-foreground">{rec.name}</p>
-        <p className="mt-1 text-sm text-muted-foreground">{rec.summary}</p>
+        <p className="mt-1 text-sm font-semibold text-foreground">{rec?.name}</p>
+        <p className="mt-1 text-sm text-muted-foreground">{rec?.summary}</p>
       </div>
 
       {site.benchmark ? (
@@ -83,6 +84,6 @@ export default function SiteDetail({ site, weights }: { site: ScoredSite; weight
           Benchmark site from the Ladywood brief — used to check that the model flags known cases.
         </p>
       ) : null}
-    </div>
+    </section>
   );
 }

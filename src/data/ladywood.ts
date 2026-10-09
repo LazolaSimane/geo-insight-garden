@@ -24,7 +24,8 @@ export type Site = {
 export const LADYWOOD_CENTRE: LatLng = [52.4805, -1.925];
 
 /**
- * Screening inputs for Ladywood (Birmingham) brownfield sites.
+ * Illustrative screening inputs for Ladywood (Birmingham) brownfield sites.
+ * Scores are team-assigned demonstration inputs, not verified source extracts.
  * L: Birmingham Brownfield Land Register (2025)
  * F: Birmingham Strategic Flood Risk Assessment (surface water)
  * G: BGS GeoSure, dominant hazard layer (generalised 1:50,000 scale)
@@ -320,7 +321,7 @@ export function buildGeoGrid(): GeoCell[] {
       // Deterministic, reproducible class assignment for the screening grid.
       const seed = (r * 31 + c * 17) % 11;
       const idx = seed < 2 ? 0 : seed < 5 ? 1 : seed < 8 ? 2 : seed < 10 ? 3 : 4;
-      const band = bands[idx]!;
+      const band = bands[idx] ?? "moderate";
       const hz = seed % 3 === 0 ? "Shrink-swell clay" : seed % 3 === 1 ? "Running sand" : "Slope instability";
       const hLat = dLat * 0.62;
       const hLng = dLng * 0.52;
@@ -349,6 +350,8 @@ export type Intervention = {
   name: string;
   summary: string;
   floodBenefit: number; // 0-5
+  landBenefit: number; // 0-5, illustrative team judgement
+  communityBenefit: number; // 0-5, illustrative team judgement
   feasibility: number; // 0-5
   maintenance: number; // 0-5, higher = lower burden
   indicativeCost: string;
@@ -362,6 +365,8 @@ export const INTERVENTIONS: Intervention[] = [
     summary:
       "Source-control drainage: permeable surfacing, swales, rain gardens and attenuation basins managing runoff close to where it falls (Defra national SuDS standards).",
     floodBenefit: 5,
+    landBenefit: 3,
+    communityBenefit: 5,
     feasibility: 3,
     maintenance: 3,
     indicativeCost: "Low–medium",
@@ -373,6 +378,8 @@ export const INTERVENTIONS: Intervention[] = [
     summary:
       "Ground treatment and re-profiling: capping or selective removal of made ground, regrading, soil improvement and vegetation establishment to stabilise the surface.",
     floodBenefit: 3,
+    landBenefit: 5,
+    communityBenefit: 4,
     feasibility: 3,
     maintenance: 4,
     indicativeCost: "Medium–high",
@@ -384,6 +391,8 @@ export const INTERVENTIONS: Intervention[] = [
     summary:
       "Retain and improve existing structures and surfaces; monitor condition. Baseline against which the other options are judged, and the low-carbon default for occupied buildings.",
     floodBenefit: 1,
+    landBenefit: 2,
+    communityBenefit: 3,
     feasibility: 5,
     maintenance: 4,
     indicativeCost: "Low",

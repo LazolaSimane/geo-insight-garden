@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { SCENARIOS } from "@/lib/scoring";
 import { scoreSites } from "@/lib/model";
 
@@ -13,10 +14,10 @@ export default function SensitivityPanel({
   onSelect: (id: string) => void;
 }) {
   const runs = SCENARIOS.map((s) => ({ scenario: s, sites: scoreSites(s.weights) }));
-  const base = runs[0]!.sites;
+  const base = runs[0]?.sites ?? [];
 
   const rows = base.map((s) => {
-    const ranks = runs.map((r) => r.sites.find((x) => x.id === s.id)!.rank);
+    const ranks = runs.map((r) => r.sites.find((x) => x.id === s.id)?.rank ?? s.rank);
     const spread = Math.max(...ranks) - Math.min(...ranks);
     return { site: s, ranks, spread };
   });
@@ -25,7 +26,7 @@ export default function SensitivityPanel({
   const topStable = runs.every((r) => r.sites.slice(0, 3).every((s) => topThree.has(s.id)));
 
   return (
-    <div className="panel p-5">
+    <section className="border-t border-border pt-6">
       <p className="label-caps">Sensitivity analysis</p>
       <h2 className="mt-1 text-lg font-semibold">Ranking under four weighting scenarios</h2>
       <p className="mt-1 text-sm text-muted-foreground">
@@ -35,7 +36,7 @@ export default function SensitivityPanel({
 
       <div className="mt-4 flex flex-wrap gap-2">
         {SCENARIOS.map((s) => (
-          <button
+          <Button variant="outline" size="sm"
             key={s.id}
             type="button"
             onClick={() => onScenario(s.id)}
@@ -47,7 +48,7 @@ export default function SensitivityPanel({
           >
             {s.name} · {Math.round(s.weights.L * 100)}/{Math.round(s.weights.F * 100)}/
             {Math.round(s.weights.G * 100)}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -73,7 +74,7 @@ export default function SensitivityPanel({
                   site.id === selectedId ? "bg-secondary" : ""
                 }`}
               >
-                <td className="py-2 pr-3">{site.name}</td>
+                <td className="py-2 pr-3"><Button variant="link" className="h-auto whitespace-normal p-0 text-left" onClick={() => onSelect(site.id)}>{site.name}</Button></td>
                 {ranks.map((r, i) => (
                   <td key={i} className="px-2 py-2 text-center font-mono">
                     {r}
@@ -83,7 +84,7 @@ export default function SensitivityPanel({
                   className="pl-2 py-2 text-center font-mono"
                   style={{ color: spread >= 3 ? "var(--risk-high)" : "var(--risk-low)" }}
                 >
-                  ±{spread}
+                  {spread} places
                 </td>
               </tr>
             ))}
@@ -94,10 +95,10 @@ export default function SensitivityPanel({
       <p className="mt-4 rounded-lg border border-border bg-surface-2 p-3 text-sm text-muted-foreground">
         <span className="font-medium text-foreground">Result: </span>
         {topStable
-          ? "the same three sites hold the top of the ranking in all four scenarios, so the priority set is judged robust to the weighting assumption."
+          ? "the same three sites hold the top of the ranking in all four scenarios, so the priority set is stable under these four scenarios only; this does not validate the inputs."
           : "the top three sites change between scenarios, so the ranking is weighting-sensitive and is reported as a documented uncertainty."}{" "}
-        Sites showing ±3 or more places of movement should not be separated on score alone.
+        Sites showing a range of 3 or more places of movement should not be separated on score alone.
       </p>
-    </div>
+    </section>
   );
 }

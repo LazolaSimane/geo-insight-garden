@@ -19,11 +19,11 @@ function Dots({ value, label }: { value: number; label: string }) {
 
 export default function InterventionComparison({ site }: { site: ScoredSite }) {
   return (
-    <div className="panel p-5">
+    <section className="border-t border-border pt-6">
       <p className="label-caps">Intervention comparison</p>
       <h2 className="mt-1 text-lg font-semibold">Options for {site.name}</h2>
       <p className="mt-1 text-sm text-muted-foreground">
-        Compared on flood benefit, site feasibility and maintenance burden. Highlighted option is
+        Illustrative team ratings (1–5), not measured outcomes. Highlighted option is
         the screening recommendation — it is not a design decision.
       </p>
 
@@ -45,6 +45,8 @@ export default function InterventionComparison({ site }: { site: ScoredSite }) {
               <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{opt.summary}</p>
               <div className="mt-3 space-y-1.5">
                 <Dots label="Flood benefit" value={opt.floodBenefit} />
+                <Dots label="Land rehabilitation benefit" value={opt.landBenefit} />
+                <Dots label="Community benefit" value={opt.communityBenefit} />
                 <Dots label="Feasibility on this site" value={feasibility} />
                 <Dots label="Low maintenance burden" value={opt.maintenance} />
               </div>
@@ -59,15 +61,14 @@ export default function InterventionComparison({ site }: { site: ScoredSite }) {
                 </div>
               </dl>
               {opt.id === "suds" && site.scores.G >= 75 ? (
-                <p className="mt-3 text-xs text-accent">
-                  Feasibility reduced: GeoSure class {site.geoHazard} limits infiltration — lined
-                  attenuation would be required.
+                <p className="mt-3 text-xs text-accent-foreground">
+                  Screening constraint: {site.geoHazard}. Confirm permeability, contamination and groundwater before infiltration; lined attenuation is a candidate, not a requirement.
                 </p>
               ) : null}
             </div>
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }
