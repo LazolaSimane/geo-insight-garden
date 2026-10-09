@@ -1,14 +1,40 @@
-# Welcome to your Lovable project
+# Site Insight Navigator
+
+build:
+
+Ladywood interactive map
+
+Brownfield sites
+
+Flood-risk layer
+
+GeoSure ground-condition layer
+
+L, F, G scores
+
+R = 0.40L + 0.40F + 0.20G
+
+Priority ranking
+
+Site-by-site drill-down
+
+Intervention comparison
+
+Sensitivity analysis
+
+Assumptions/limitations panel
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://geo-insight-garden.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/85605ec0-8ae5-4ccb-91de-b63ebbae658f).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +46,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
